@@ -1,0 +1,77 @@
+
+# Curso profesional de React
+
+Un curso dado por [Código Facilito](https://codigofacilito.com/cursos/react-profesional)
+
+
+## Tech Stack
+
+**Ecosistema de React**
+- Vite,
+- Redux Toolkit,
+- Zustand,
+- React Router,
+- SWR,
+- React Hook Form,
+- Tailwind CSS,
+- Styled Components,
+- React Spring,
+- React Testing Library,
+- NEXT.JS
+
+
+## JSX
+
+[HTML a JSX](https://transform.tools/html-to-jsx)
+
+## Reactividad
+
+Es la capacidad de los componenentes de llamarse a si mismo. (Actualizarse)
+## State
+
+#### useState
+
+```jsx
+  import {useState} from 'react';
+
+  const MyFirstComponent = () => {
+    const [value, setValue] = useState(0);
+
+    setTimeout(() => {
+        setValue(value + 1);
+    }, 3000);
+
+    return (
+        <div>
+            {value}
+        </div>
+    );
+  }
+```
+
+## Inmutabilidad
+
+React crea un nuevo objeto, no modifica el original.
+## Props
+
+Los componentes pueden recibir propiedades, ya sean reactivas o constantes. En el primer caso, al cambiar la propiedad también se actualiza el componente.
+
+```
+<MyFirstComponent propOne={value} propTwo={2}>
+```
+## Bundler
+
+Todos los archivos usados en nuestro proyecto son transpilados y unificados.
+
+Puede ser Webpack o Vite.
+## Installation
+
+Para un proyecto nuevo:
+```
+npm create vite@latest
+```
+
+Para iniciar el proyecto:
+```
+npm run dev
+```
