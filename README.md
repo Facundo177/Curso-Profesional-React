@@ -75,3 +75,41 @@ Para iniciar el proyecto:
 ```
 npm run dev
 ```
+
+
+## LIstas
+
+### mapping
+
+Cada elemento debe tener una key, y ésta debe ser única.
+
+```
+const arrayOfNumbers = [1,2,3,4,5,6,7,8];
+const items = arrayOfNumbers.map((item) => <li key={`array-number-item-${item}`}>{item}</li>);
+...
+...
+<ul>{items}</ul>
+```
+
+```
+const arrayOfPeople = [
+    {
+    "id": 1,
+    "name": "Uriel",
+    "age": 20
+    },{
+    "id": 2,
+    "name": "Juan",
+    "age": 24
+    },{
+    "id": 3,
+    "name": "Jose",
+    "age": 21
+    }
+];
+
+const peopleItems = arrayOfPeople.map((person) => <li key={`array-person-item-${person.id}`}>{person.name}</li>)
+...
+...
+<ul>{peopleItems}</ul>
+```
