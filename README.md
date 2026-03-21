@@ -1,7 +1,7 @@
 
 # Curso profesional de React
 
-Un curso dado por [Código Facilito](https://codigofacilito.com/cursos/react-profesional)
+Apuntes personales y proyecto, basados en un curso dado por [Código Facilito](https://codigofacilito.com/cursos/react-profesional).
 
 
 ## Tech Stack
@@ -20,14 +20,30 @@ Un curso dado por [Código Facilito](https://codigofacilito.com/cursos/react-pro
 - NEXT.JS
 
 
-## JSX
+## Installation
+
+Para un proyecto nuevo:
+```
+npm create vite@latest
+```
+
+Para iniciar el proyecto:
+```
+npm run dev
+```
+
+
+## Conceptos
+
+### JSX
 
 [HTML a JSX](https://transform.tools/html-to-jsx)
 
-## Reactividad
+### Reactividad
 
 Es la capacidad de los componenentes de llamarse a si mismo. (Actualizarse)
-## State
+
+### State
 
 #### useState
 
@@ -49,37 +65,31 @@ Es la capacidad de los componenentes de llamarse a si mismo. (Actualizarse)
   }
 ```
 
-## Inmutabilidad
+
+### Inmutabilidad
 
 React crea un nuevo objeto, no modifica el original.
-## Props
+
+
+### Props
 
 Los componentes pueden recibir propiedades, ya sean reactivas o constantes. En el primer caso, al cambiar la propiedad también se actualiza el componente.
 
 ```
 <MyFirstComponent propOne={value} propTwo={2}>
 ```
-## Bundler
+
+
+### Bundler
 
 Todos los archivos usados en nuestro proyecto son transpilados y unificados.
 
 Puede ser Webpack o Vite.
-## Installation
-
-Para un proyecto nuevo:
-```
-npm create vite@latest
-```
-
-Para iniciar el proyecto:
-```
-npm run dev
-```
 
 
-## LIstas
+### LIstas
 
-### mapping
+#### mapping
 
 Cada elemento debe tener una key, y ésta debe ser única.
 
@@ -112,4 +122,25 @@ const peopleItems = arrayOfPeople.map((person) => <li key={`array-person-item-${
 ...
 ...
 <ul>{peopleItems}</ul>
+```
+
+
+### Eventos en React
+
+Los Event Handlers capturan los eventos.
+
+Los eventos se propagan de hijos a padres. Esto se puede evitar con el método stopPropagation
+
+
+```
+function Button({ onClick, children }) {
+  return (
+    <button onClick={e => {
+      e.stopPropagation();
+      onClick();
+    }}>
+      {children}
+    </button >
+  );
+}
 ```
