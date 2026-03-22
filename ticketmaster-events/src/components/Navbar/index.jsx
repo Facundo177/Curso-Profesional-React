@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Navbar = ({onSearch}) => {
   const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    console.log()
+  }, [search, onSearch]);
 
   const handleInputChange = (event) => {
     setSearch(event.target.value);

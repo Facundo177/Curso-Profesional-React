@@ -1,50 +1,39 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const SignupForm = ({}) => {
 
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [address, setAddress] = useState('');
-  const [zipcode, setZipcode] = useState('');
-  const [phone, setPhone] = useState('');
+  const {register, handleSubmit, reset, formState: {errors}} = useForm();
 
-
-  const handleSubmitForm = (event) => {
-    event.preventDefault();
-
-    // lo que querramos hacer con los datos de name, age, etc.
+  const handleSubmitForm = (data) => {
+    // el prevent default ya lo hace handleSubmit
+    console.log(data);
   }
 
   const handleClearClick = () => {
-    setName('');
-    setAge('');
-    setAddress('');
-    setZipcode('');
-    setPhone('');
+    reset();
   }
 
-
   return (
-    <form onSubmit={handleSubmitForm}>
+    <form onSubmit={handleSubmit(handleSubmitForm)}>
       <label >
         Name
-        <input value={name} onChange={(event) => setName(event.target.value)} required/>
+        <input {...register('name'), {required: true}}/>
       </label>
       <label >
         Age
-        <input value={age} onChange={(event) => setAge(event.target.value)} required/>
+        <input {...register('age'), {required: true}}/>
       </label>
       <label >
         Address
-        <input value={address} onChange={(event) => setAddress(event.target.value)} required/>
+        <input {...register('address'), {required: true}}/>
       </label>
       <label >
         Zipcode
-        <input value={zipcode} onChange={(event) => setZipcode(event.target.value)} required/>
+        <input {...register('zipcode'), {required: true}}/>
       </label>
       <label >
         Phone
-        <input value={phone} onChange={(event) => setPhone(event.target.value)} required/>
+        <input {...register('phone'), {required: true}}/>
       </label>
 
       <div>
