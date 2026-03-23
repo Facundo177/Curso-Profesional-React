@@ -389,3 +389,129 @@ El cambio de ruta no cambia completamente todo el html de la página, puede simp
 Para esto usamos lo siguiente...
 
 #### React Router
+
+Nos permite definir las rutas de nuestra aplicación y usarlas para definir qué componenetes deben renderizarse en pantalla.
+
+Primero se definen las rutas base:
+
+```jsx
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <div>Home</div>
+  },
+  {
+    path: '/detail',
+    element: <div>Detail</div>
+  },
+]);
+
+const MyRoutes = () => <RouterProvider router={router} />;
+
+export default MyRoutes;
+```
+
+Luego hago que mi App solo retorne las rutas, sacando el código previamente escrito y delegándolo al nuevo componente de rutas:
+```jsx
+function App() {
+  return <Routes />;
+}
+```
+
+
+#### Views
+
+Modularizo las rutas creando un componente dentro de la carpeta views para cada ruta:
+```jsx
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Home from '../views/Home';
+import Detail from '../views/Detail';
+import Error404 from '../views/Error404';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />,
+    errorElement: <Error404 />
+  },
+  {
+    path: '/detail',
+    element: <Detail />
+  },
+]);
+
+const MyRoutes = () => <RouterProvider router={router} />;
+
+export default MyRoutes;
+```
+
+
+#### Manejo de errores (useRouterError)
+
+En el ejemplo de código anterior aparece un errorElement dentro del path base. En caso de error se mostrará la vista de Error404.
+
+Para leer el error tenemos otro hook, el useRouterError, que retorna un objeto con información sobre el error obtenido:
+```jsx
+import { useRouteError } from 'react-router-dom';
+import styles from './Error404.module.css';
+
+const Error404 = () => {
+  const error = useRouteError();
+
+  return (
+    <div className={styles.container}>
+      <h3 className={styles.title}>{error.status} Oops!</h3>
+      <p className={styles.description}>{error.data}</p>
+    </div>
+  );
+};
+
+export default Error404;
+```
+
+
+#### Navegación
+
+Para navegar internamente tengo dos opciones:
+- con Link
+    ```jsx
+    import { Link } from 'react-router-dom';
+    const EventItem = ({ info, id, name, image, onEventClick }) => {
+    ...
+        <Link to={`/detail/${id}`}>
+            Ver Más
+        </Link>
+    ...
+    ```
+- con useNavigate
+    ```jsx
+    import { useNavigate } from "react-router-dom";
+    const Events = ({searchTerm}) => {
+        const { events, isLoading, error } = useEventsData();
+        const navigate = useNavigate();
+
+        const handleEventItemClick = (id) => {
+            navigate(`/detail/${id}`);
+        };
+    ...
+    ```
+
+#### Parámetros en rutas
+
+Podemos definir rutas dinámicas, que obtengan un parámetro de la url.
+
+Como en el apartado anterior, cuando pasaba la id como parte de la ruta.
+
+En Routes:
+```jsx
+...
+    {
+      path: '/detail/:eventId',
+      element: <Detail />
+    },
+```
+
+
+#### Rutas anidadas
