@@ -77,7 +77,7 @@ React crea un nuevo objeto, no modifica el original.
 
 Los componentes pueden recibir propiedades, ya sean reactivas o constantes. En el primer caso, al cambiar la propiedad también se actualiza el componente.
 
-```
+```jsx
 <MyFirstComponent propOne={value} propTwo={2}>
 ```
 
@@ -95,7 +95,7 @@ Puede ser Webpack o Vite.
 
 Cada elemento debe tener una key, y ésta debe ser única.
 
-```
+```jsx
 const arrayOfNumbers = [1,2,3,4,5,6,7,8];
 const items = arrayOfNumbers.map((item) => <li key={`array-number-item-${item}`}>{item}</li>);
 ...
@@ -103,7 +103,7 @@ const items = arrayOfNumbers.map((item) => <li key={`array-number-item-${item}`}
 <ul>{items}</ul>
 ```
 
-```
+```jsx
 const arrayOfPeople = [
     {
     "id": 1,
@@ -134,7 +134,7 @@ Los Event Handlers capturan los eventos.
 Los eventos se propagan de hijos a padres. Esto se puede evitar con el método stopPropagation
 
 
-```
+```jsx
 function Button({ onClick, children }) {
   return (
     <button onClick={e => {
@@ -152,7 +152,7 @@ function Button({ onClick, children }) {
 
 Dentro del padre se declara el state con la información y se pasa al hijo la función que permite modificarlo. A su vez, se comparte el valor de dicho estado a los otros hijos para que al cambiar el estado se actualicen ellos también con el nuevo valor.
 
-```
+```jsx
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -172,7 +172,7 @@ function App() {
 
 ### Filtrado básico por nombre
 
-```
+```jsx
 const renderEvents = () => {
     let eventsFiltered = events;
 
@@ -191,7 +191,7 @@ Normalmente se usan librerías para el manejo de forms. Las más populares son R
 
 Sin dependencias podríamos hacer lo siguiente:
 
-```
+```jsx
   // Creamos un estado para cada input del form
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
@@ -238,7 +238,7 @@ Sin dependencias podríamos hacer lo siguiente:
 
 Hace mucho más simple el código de arriba:
 
-```
+```jsx
   const {register, handleSubmit, reset, formState: {errors}} = useForm();
 
   const handleSubmitForm = (data) => {
@@ -276,7 +276,7 @@ Funciones que permiten reutilizar o compartir lógica o estado (el useState que 
 
 #### Reglas de los Hooks
 - se deben llamar en el nivel superior, fuera de cualquier ciclo, condicional o funciones anidadas. Lo recomendado es en la parte superior dentro de un componente.
-    ```
+    ```jsx
     const Navbar = ({onSearch}) => {
         const [search, setSearch] = useState('');
         ...
@@ -297,7 +297,7 @@ Son valores de referencia para cuando queremos guardar algo de forma global, per
 
 #### Referencia a un contenido HTML
 
-```
+```jsx
 const containerRef = useRef();
 ...
     <div ref={containerRef}>
@@ -315,7 +315,7 @@ Entonces queda como primer argumento las props y como segundo argumento la ref.
 
 Al envolver el componenete es necesario declarar su displayName.
 
-```
+```jsx
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const containerRef = useRef();
@@ -339,7 +339,7 @@ Navbar.displayName = 'Navbar';
 
 Un hook que nos permite exponer valores. El primer argumento es la referencia que viene del padre y el segundo es un callback que retorna un objeto (todo lo que esté dentro del objeto se expone al padre).
 
-```
+```jsx
 const Navbar = forwardRef(({onSearch}, ref) => {
 ...
     useImperativeHandle(ref, () => ({
@@ -354,13 +354,13 @@ const Navbar = forwardRef(({onSearch}, ref) => {
 #### Módulos css
 
 React nos permite crear archivos de css modularizados, que van a tener un hash único para cada clase de css, evitando problemas de clases con el mismo nombre en diferentes componentes.
-```
+```jsx
 import styles from './EventItem.module.css';
 ```
 Dentro de la carpeta del componente, creamos un nuevo archivo de la siguiente manera: [Nombre del componente].module.css
 
 Es recomendado usar Camel Case para los nombres de clases:
-```
+```jsx
 .eventItemContainer{
   display: flex;
   margin: 24px 0;
@@ -370,11 +370,22 @@ Es recomendado usar Camel Case para los nombres de clases:
 
 Se aplica de la siguiente manera:
 
-```
+```jsx
 <div className={styles.eventItemContainer}> ...
 ```
 
 Más de una clase:
-```
+```jsx
 <div className={`${styles.eventItemContainer} ${styles.anotherClass}`}> ...
 ```
+
+
+### Routing
+
+#### Client Side Routing
+
+El cambio de ruta no cambia completamente todo el html de la página, puede simplemente cambiar unos componentes por otros. No es necesario solicitar todo el Javascript, HTML y CSS por cada ruta a la que se accede.
+
+Para esto usamos lo siguiente...
+
+#### React Router

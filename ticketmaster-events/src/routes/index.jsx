@@ -1,13 +1,15 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Home from '../views/Home';
+import Detail from '../views/Detail';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <div>Home</div>
+    element: <Home />
   },
   {
     path: '/detail',
-    element: <div>Detail</div>
+    element: <Detail />
   },
 ]);
 
