@@ -1,0 +1,35 @@
+.event-item-container{
+  display: flex;
+  margin: 24px 0;
+  align-items: start;
+}
+
+.event-item-image{
+  height: 200px;
+}
+
+.event-info-container{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-left: 14px;
+}
+
+.event-name{
+  margin: 0;
+  font-size: 22px;
+}
+
+.event-info{
+  text-align: left;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
+.see-more-btn{
+  margin-top: 8px;
+}
