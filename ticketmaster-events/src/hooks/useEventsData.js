@@ -15,7 +15,21 @@ const useEventsData = () => {
         setError(e);
       }
     }, 2000);
+
+
     // Load API Call
+    // const fetchEvents = async () => {
+    //   try {
+    //     const response = await fetch("https://app.ticketmaster.com/discovery/v2/events,json?apikey=...&countryCode=MX");
+    //     const data = await response.json();
+    //     setData(data);
+    //     setIsLoading(false);
+    //   } catch (e) {
+    //     setError(e);
+    //   }
+    // };
+    // fetchEvents();
+
   }, []);
 
   return {
