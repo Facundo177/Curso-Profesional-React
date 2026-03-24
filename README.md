@@ -513,5 +513,205 @@ En Routes:
     },
 ```
 
+#### useParams
+
+Es el hook que nos permite leer los parámetros de la url. Devuelve un objeto con clave/valor.
+```jsx
+
+```
+
 
 #### Rutas anidadas
+
+Hay una propiedad cuando declaramos rutas en el createBrowserRouter, que es children. Las rutas anidadas no llevan una '/' al principio, React ya sabe que la url es padre/hijo.
+```jsx
+{
+    path: '/profile',
+    element: <Profile />,
+    children: [
+      {
+        path: 'my-info',
+        element: <div>info</div>
+      },
+      {
+        path: 'liked-events',
+        element: <div>liked</div>
+      }
+    ]
+  }
+```
+
+Existe el componente Outlet para mostrar los elementos hijos dentro de la ruta padre. Simplemente hay que incluirlo dentro del componente padre y dentro de él se mostrará lo que pertenezca al componente hijo.
+```jsx
+import { Outlet } from "react-router-dom";
+
+const Profile = () => {
+  return (
+    <div>
+      Profile
+      <Outlet />
+    </div>
+  );
+};
+
+export default Profile;
+```
+
+#### Fetch a una API
+
+En el hook que creamos llamado useEventsData, podemos cambiar el JSON local por una llamada a la API para obtener la información.
+```jsx
+...
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch("https://app.ticketmaster.com/discovery/v2/events,json?apikey=...&countryCode=MX");
+        const data = await response.json();
+        setData(data);
+        setIsLoading(false);
+      } catch (e) {
+        setError(e);
+      }
+    };
+...
+```
+
+La llamada a la API se expone como función y se llama desde el padre, es decir, desde la vista Home. Esto evita reiteradas llamadas al recargar el componente, haciendo solo la llamada a la API cuando se monta el componente Home.
+
+
+#### Operador ternario
+
+Aprovechando que movimos parte de la lógica de Eventos a Home, podemos usar el operador ternario para mostrar cuando está cargando la consulta a la API y cuando ocurre un error.
+
+```jsx
+...
+    <Navbar onSearch={handleNavbarSearch} ref={containerRef} />
+    {isLoading ? <div>Cargando resultados...</div> : <Events searchTerm={searchTerm} events={events}/>}
+    {!!error && <div>Ha ocurrido un error</div>}
+    <SignupForm />
+...
+```
+
+
+#### Consultas más específicas a la API
+
+Modificamos un poco nuestro hook para poder sumar un nuevo parámetro a la consulta, que se va a obtener de la búsqueda en la Navbar.
+
+```jsx
+  const fetchEvents = async (params) => {
+    try {
+      const response = await fetch(`https://app.ticketmaster.com/discovery/v2/events,json?apikey=...&countryCode=MX${params?.length ? params : ''}`);
+      const data = await response.json();
+      setData(data);
+      setIsLoading(false);
+    } catch (e) {
+      setError(e);
+    }
+  };
+```
+Desde Home la consulta es:
+```jsx
+  const handleNavbarSearch = (term) => {
+    setSearchTerm(term);
+    fetchEvents(`&keyword=${term}`);
+  };
+```
+
+
+#### Paginación (react-paginate)
+
+La consulta a la API nos trae os resultados de a 20 en 20. Los elementos totales son más de 2500, pero por obvias razones no vamos a recibir todo de una vez, por eso la propia API lo separa en grupos de a 20 resultados llamados páginas.
+
+En el JSON recibido tenemos lo siguiente:
+```json
+    page: {
+        number: 0
+        size: 20
+        totalElements: 2510
+        totalPages: 126
+    }
+```
+
+Para usar la paginación, podemos implementar en Home:
+```jsx
+import ReactPaginate from 'react-paginate';
+const Paginate = ReactPaginate.default || ReactPaginate;
+...
+  const renderEvents = () => {
+    if (isLoading) {
+      return <div>Cargando resultados...</div>;
+    }
+    if (error) {
+      return <div>Ha ocurrido un error</div>
+    }
+    return (
+      <div>
+        <Events searchTerm={searchTerm} events={events} />
+        <Paginate
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={12}
+          previousLabel="<"
+          renderOnZeroPageCount={null}
+        />
+      </div>
+    );
+  };
+...
+```
+
+
+#### Fetch para consultar un evento por id
+
+
+#### Variable de entorno para no exponer la API key
+
+
+### State Management
+
+#### Zustand
+
+#### Like y Dislike con localStorage
+
+#### Guardar eventos favoritos
+
+
+### Memoization
+
+#### memo
+
+#### useMemo()
+
+
+
+### React Concurrence
+
+#### Strict Mode
+
+#### ErrorBoundary
+
+#### Suspense
+
+#### useTransition
+
+
+
+
+
+## React 19
+
+### useActionState
+Nuevo hook para formularios.
+
+### useFormStatus
+
+### useOptimistic
+
+### React compiler
+
+### Forward Ref
+
+### use()
+
+### metadata

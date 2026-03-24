@@ -6,7 +6,7 @@ const useEventsData = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
 
-  useEffect(() => {
+  const fetchEvents = (params) => {
     setTimeout(() => {
       try {
         setData(eventsJSON);
@@ -15,27 +15,27 @@ const useEventsData = () => {
         setError(e);
       }
     }, 2000);
+  };
 
 
-    // Load API Call
-    // const fetchEvents = async () => {
-    //   try {
-    //     const response = await fetch("https://app.ticketmaster.com/discovery/v2/events,json?apikey=...&countryCode=MX");
-    //     const data = await response.json();
-    //     setData(data);
-    //     setIsLoading(false);
-    //   } catch (e) {
-    //     setError(e);
-    //   }
-    // };
-    // fetchEvents();
-
-  }, []);
+  // Load API Call
+  // const fetchEvents = async (params) => {
+  //   try {
+  //     const response = await fetch(`https://app.ticketmaster.com/discovery/v2/events,json?apikey=...&countryCode=MX${params?.length ? params : ''}`);
+  //     const data = await response.json();
+  //     setData(data);
+  //     setIsLoading(false);
+  //   } catch (e) {
+  //     setError(e);
+  //   }
+  // };
 
   return {
     events: data?._embedded?.events || [],
+    page: data?.page || {},
     isLoading,
-    error
+    error,
+    fetchEvents
   };
 };
 

@@ -20,11 +20,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'my-info',
-        element:
+        element: <div>info</div>
       },
       {
         path: 'liked-events',
-        element:
+        element: <div>liked</div>
       }
     ]
   }
